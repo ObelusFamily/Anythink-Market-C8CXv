@@ -8,8 +8,9 @@
   "scripts": {
     "start": "node ./app.js",
     "dev": "nodemon ./app.js",
-    "seeds": "echo 'Please create seeds file'",
+    "seeds": "node ./db-fixtures/create-seeds.js",
     "test": "newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json",
+    "tests": "jest",
     "stop": "lsof -ti :3000 | xargs kill"
   },
   "dependencies": {
@@ -34,6 +35,8 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.97",
+    "jest": "^27.4.7",
     "newman": "^3.8.2",
     "nodemon": "^1.11.0"
   }

@@ -8,6 +8,7 @@ var http = require("http"),
   cors = require("cors"),
   passport = require("passport"),
   errorhandler = require("errorhandler"),
+  dbClient = require('./dbClient'),
   mongoose = require("mongoose");
 
 var isProduction = process.env.NODE_ENV === "production";
@@ -42,7 +43,7 @@ if (!process.env.MONGODB_URI) {
   console.warn("Missing MONGODB_URI in env, please add it to your .env file");
 }
 
-mongoose.connect(process.env.MONGODB_URI);
+dbClient.dbConnect()
 if (isProduction) {
 } else {
   mongoose.set("debug", true);
