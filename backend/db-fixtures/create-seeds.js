@@ -16,7 +16,7 @@ async function SeedItems(total = DEFAULT_NUMBER_OF_ITEMS) {
             username: `user${i}`,
             email: `user${i}@google.com`,
             bio: 'user bio',
-            image: 'what should go here?',
+            image: 'https://www.cameraegg.org/wp-content/uploads/2015/06/canon-powershot-g3-x-sample-images-1.jpg',
             favorites: [],
             following: [],
             hash: 'hash',
@@ -26,7 +26,6 @@ async function SeedItems(total = DEFAULT_NUMBER_OF_ITEMS) {
             slug: `sample-item-${i}`,
             title: 'item-title',
             description: 'item-description',
-            image: 'what should go here?',
             comments: [],
             tagList: [],
             seller: user
