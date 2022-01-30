@@ -35,14 +35,11 @@ ItemSchema.methods.slugify = function() {
     ((Math.random() * Math.pow(36, 6)) | 0).toString(36);
 };
 
-ItemSchema.methods.updateFavoriteCount = function() {
-  var item = this;
-
-  return User.count({ favorites: { $in: [item._id] } }).then(function(count) {
-    item.favoritesCount = count;
-
-    return item.save();
-  });
+ItemSchema.methods.updateFavoriteCount = async function() {
+    const item = this;
+    item.favoritesCount = await User.count({favorites: {$in: [item._id]}});
+    await Item.findOneAndUpdate({_id:item._id}, item, { upsert: true })
+    return item;
 };
 
 ItemSchema.methods.toJSONFor = function(user) {
@@ -60,4 +57,5 @@ ItemSchema.methods.toJSONFor = function(user) {
   };
 };
 
-module.exports = mongoose.model("Item", ItemSchema);
+const Item = mongoose.model("Item", ItemSchema);
+module.exports = Item;

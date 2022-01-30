@@ -94,12 +94,12 @@ UserSchema.methods.favorite = function(id) {
     this.favorites = this.favorites.concat([id]);
   }
 
-  return this.save();
+  return User.findOneAndUpdate({_id:this._id}, this, {upsert: true});
 };
 
 UserSchema.methods.unfavorite = function(id) {
   this.favorites.remove(id);
-  return this.save();
+  return User.findOneAndUpdate({_id:this._id}, this, {upsert: true});
 };
 
 UserSchema.methods.isFavorite = function(id) {
@@ -127,4 +127,5 @@ UserSchema.methods.isFollowing = function(id) {
   });
 };
 
-module.exports = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+module.exports = User;
