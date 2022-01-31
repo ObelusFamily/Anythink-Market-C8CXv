@@ -221,41 +221,37 @@ router.delete("/:item", auth.required, function(req, res, next) {
 });
 
 // Favorite an item
-router.post("/:item/favorite", auth.required, function(req, res, next) {
-  var itemId = req.item._id;
-
-  User.findById(req.payload.id)
-    .then(function(user) {
-      if (!user) {
+router.post("/:item/favorite", auth.required, async (req, res, next) => {
+    const user = await User.findById(req.payload.id);
+    if (!user) {
         return res.sendStatus(401);
-      }
+    }
 
-      return user.favorite(itemId).then(function() {
-        return req.item.updateFavoriteCount().then(function(item) {
-          return res.json({ item: item.toJSONFor(user) });
-        });
-      });
-    })
-    .catch(next);
+    try {
+        const item = req.item;
+        await user.favorite(item._id)
+        const updatedItem = await item.updateFavoriteCount()
+        return res.json({item: updatedItem.toJSONFor(user)})
+    } catch (error) {
+        next(error)
+    }
 });
 
 // Unfavorite an item
-router.delete("/:item/favorite", auth.required, function(req, res, next) {
-  var itemId = req.item._id;
-
-  User.findById(req.payload.id)
-    .then(function(user) {
-      if (!user) {
+router.delete("/:item/favorite", auth.required, async (req, res, next) => {
+    const user = await User.findById(req.payload.id);
+    if (!user) {
         return res.sendStatus(401);
-      }
+    }
+    try {
+        const item = req.item;
+        await user.unfavorite(item._id)
+        const updatedItem = await item.updateFavoriteCount()
+        return res.json({ item: await updatedItem.toJSONFor(user) })
+    } catch (error) {
+        next(error)
+    }
 
-      return user.unfavorite(itemId).then(function() {
-        return req.item.updateFavoriteCount().then(function(item) {
-          return res.json({ item: item.toJSONFor(user) });
-        });
-      });
-    })
-    .catch(next);
 });
 
 // return an item's comments
