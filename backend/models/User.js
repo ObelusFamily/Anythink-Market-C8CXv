@@ -113,12 +113,12 @@ UserSchema.methods.follow = function(id) {
     this.following = this.following.concat([id]);
   }
 
-  return this.save();
+  return User.findOneAndUpdate({_id:this._id}, this, {upsert: true});
 };
 
 UserSchema.methods.unfollow = function(id) {
   this.following.remove(id);
-  return this.save();
+  return User.findOneAndUpdate({_id:this._id}, this, {upsert: true});
 };
 
 UserSchema.methods.isFollowing = function(id) {
