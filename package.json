@@ -6,7 +6,8 @@
     "node": ">=16"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"cd frontend && ./start.sh\" \"cd backend && ./start.sh\""
+    "start": "concurrently --kill-others \"cd frontend && ./start.sh\" \"cd backend && ./start.sh\"",
+    "seed": "cd backend && npm run seed"
   },
   "keywords": [],
   "author": "Wilco Inc.",
