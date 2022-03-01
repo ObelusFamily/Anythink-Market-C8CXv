@@ -51,10 +51,10 @@ async function removeOldSeeds() {
 }
 
 async function run() {
-    if (process.env.NODE_ENV === "production") {
-        console.error("Can't seed in production env")
-        return
-    }
+    // if (process.env.NODE_ENV === "production") {
+    //     console.error("Can't seed in production env")
+    //     return
+    // }
     await initializeDb();
     await removeOldSeeds()
     await SeedItems();
