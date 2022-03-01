@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "concurrently --kill-others \"cd frontend && ./start.sh\" \"cd backend && ./start.sh\"",
-    "seed": "cd backend && npm run seed"
+    "seed": "cd backend && npm run seeds"
   },
   "keywords": [],
   "author": "Wilco Inc.",
